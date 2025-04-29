@@ -27,7 +27,7 @@ def matrix_preprocess(matrix, name):
         bytes_chunk = unsigned_data[i:i+8]
         word = 0
         for j, byte in enumerate(bytes_chunk):
-            word |= (np.uint64(byte) << (8 * j))
+            word |= (byte << (8 * j))
         packed_data[i//8] = word
     
     # 打印结果，按照C语言数组初始化的格式输出

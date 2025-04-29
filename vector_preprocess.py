@@ -57,7 +57,7 @@ def vector_preprocess(vector, dtype, name):
             # 将32个bit组合成一个32位的数
             word = 0
             for i in range(32):
-                word = (np.uint64(word) << 1) | bits[i]
+                word = (word << 1) | bits[i]
             chunk_bit_words[bit_pos] = word
         
         processed_chunks.append(chunk_bit_words)

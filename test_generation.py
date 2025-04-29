@@ -24,7 +24,7 @@ for itr in range(NUM_ITR):
     # Create input feature by concatenating thermal and power data
     input_feature = np.zeros(32, dtype=np.int8)
     # Fix: use np.concatenate instead of np.concat and select the specific iteration
-    input_feature[0:28] = np.concatenate([quantized_thermal[itr], quantized_power[itr]])[:28]
+    input_feature[0:28] = np.concatenate([quantized_power[itr], quantized_thermal[itr]])[:28]
     
     # Output the input feature for this iteration
     vector_preprocess(input_feature, dtype=np.int8, name=f"input_feature_itr{itr}")
@@ -56,6 +56,9 @@ for itr in range(NUM_ITR):
     
     output_feature_0 = input_feature_32 @ weight_0_32 + bias_0
     output_feature_0 = np.maximum(output_feature_0, zero_point_0)
+
+    vector_preprocess(output_feature_0, dtype=np.int32, name=f"output_feature_0_itr{itr}")
+
     output_feature_0 = output_feature_0 * scaling_factor_32
     output_feature_0 = output_feature_0 // 131072 # Left shift
     
