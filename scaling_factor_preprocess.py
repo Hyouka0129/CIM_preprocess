@@ -16,7 +16,7 @@ def scaling_factor_preprocess(scaling_factor, name):
         bytes_chunk = result_vector[i:i+8]
         word = 0
         for j, byte in enumerate(bytes_chunk):
-            word |= (byte << (8 * j))
+            word |= (np.uint64(byte) << (8 * j))
         packed_data[i//8] = word
     
     # 打印结果，按照C语言数组初始化的格式输出
